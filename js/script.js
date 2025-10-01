@@ -158,11 +158,11 @@ function computeGeneratedBlocks() {
   } else {
     const featuresChosen = featureChecks.filter(c => c.checked).map(c => c.value);
     if (featureCustom.value.trim()) featuresChosen.push(featureCustom.value.trim());
-    out.features = featuresChosen.length ? 'Этот день ' + featuresChosen.join('. ') + '.' : '';
+    out.features = featuresChosen.length ? 'Этот день особенный, потому что ' + featuresChosen.join(', ') + '.' : '';
 
     const thanksChosen = thanksChecks.filter(c => c.checked).map(c => c.value);
     if (thanksCustom.value.trim()) thanksChosen.push(thanksCustom.value.trim());
-    out.thanks = thanksChosen.length ? 'Спасибо ' + thanksChosen.join('. ') + '.' : '';
+    out.thanks = thanksChosen.length ? 'Я хочу сказать тебе спасибо ' + thanksChosen.join(', ') + '.' : '';
   }
 
   // Заключение и подпись
@@ -175,7 +175,7 @@ function computeGeneratedBlocks() {
   // Пожелания
   const wishesChosen = wishChecks.filter(c => c.checked).map(c => c.value);
   if (wishCustom.value.trim()) wishesChosen.push(wishCustom.value.trim());
-  out.wishes = wishesChosen.join('. ');
+  out.wishes = wishesChosen.join(', ');
 
   return out;
 }
