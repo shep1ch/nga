@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Генератор поздравлений</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/preloader.css">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script defer src="js/script.js"></script>
+</head>
+<body>
+
+<!-- PRELOADER -->
+  <div id="preloader" class="preloader">
+    <div class="preloader__box" role="status" aria-live="polite">
+      <svg class="preloader__ring" viewBox="0 0 50 50" aria-hidden="true">
+        <circle class="ring-bg" cx="25" cy="25" r="20" fill="none" stroke-width="4"/>
+        <circle class="ring-fg" cx="25" cy="25" r="20" fill="none" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+
+      <div class="preloader__meta">
+        <div id="preloader-percent" class="preloader__percent">0%</div>
+        <div class="preloader__text">загрузка...</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="site" class="site">
+  <!-- Фон -->
+  <div class="area">
+    <ul class="circles">
+      <li></li><li></li><li></li><li></li><li></li>
+      <li></li><li></li><li></li><li></li><li></li>
+    </ul>
+  </div>
+
+  <!-- Основной контейнер -->
+  <div class="glass">
+    <!-- Заголовок -->
+    <div class="box box-wide">
+      <h1>
+        Генератор поздравлений
+        <span class="info-icon" id="infoBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16h.01"/>
+            <path d="M12 12a2 2 0 1 0-2-2"/>
+          </svg>
+        </span>
+      </h1>
+    </div>
+
+    <!-- Модалка -->
+    <div class="info-modal" id="infoModal">
+      <div class="modal-inner">
+        <div class="modal-header">
+          <h2>Что это?</h2>
+          <span class="modal-close" id="closeModal">&times;</span>
+        </div>
+        <div class="modal-content">
+          <p>Сайт генерирует черновые варианты поздравлений. 
+            Это не готовый текст — всё требует доработки и корректировки под себя. 
+            Помогает быстро придумать идею, но финальный вариант создаётся вручную.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. Приветствие -->
+    <div class="box">
+      <h3>1. Приветствие</h3>
+      <div class="dropdown" id="greeting-select" data-custom="greeting-custom-wrap">
+        <div class="dropdown-btn">Выберите обращение</div>
+        <ul class="dropdown-content">
+          <li value="{name}">[Имя получателя]</li>
+          <li value="Дорогой {name}">Дорогой</li>
+          <li value="Дорогая {name}">Дорогая</li>
+          <li value="Любимый {name}">Любимый</li>
+          <li value="Любимая {name}">Любимая</li>
+          <li value="Уважаемый {name}">Уважаемый</li>
+          <li value="Уважаемая {name}">Уважаемая</li>
+          <li value="custom">Свой вариант</li>
+        </ul>
+      </div>
+      <div id="greeting-custom-wrap" hidden>
+        <input id="greeting-custom" type="text" class="input" placeholder="Свой вариант">
+      </div>
+      <div>
+        <input id="recipient-name" type="text" class="input" placeholder="Имя получателя">
+      </div>
+    </div>
+
+    <!-- 2. Основное поздравление -->
+    <div class="box">
+      <h3>2. Основное поздравление</h3>
+      <div class="dropdown" id="main-select" data-custom="main-custom-wrap">
+        <div class="dropdown-btn">Формулировка</div>
+        <ul class="dropdown-content">
+          <li value="От всего сердца поздравляю тебя с {event}">От всего сердца поздравляю тебя с</li>
+          <li value="Прими искренние поздравления с {event}">Прими искренние поздравления с</li>
+          <li value="Поздравляю тебя с {event}">Поздравляю тебя с</li>
+          <li value="custom">Свой вариант</li>
+        </ul>
+      </div>
+      <div id="main-custom-wrap" hidden>
+        <input id="main-custom" type="text" class="input" placeholder="Например: От всей души поздравляю с">
+      </div>
+
+      <div class="dropdown" id="event-select" data-custom="event-custom-wrap">
+        <div class="dropdown-btn">Праздник</div>
+        <ul class="dropdown-content">
+          <li data-insert="Днём рождения">День рождения</li>
+          <li data-insert="Юбилеем">Юбилей</li>
+          <li data-insert="Новым годом">Новый год</li>
+          <li data-insert="Профессиональным праздником">Профессиональный праздник</li>
+          <li data-insert="Днём свадьбы">День свадьбы</li>
+          <li value="custom">Свой вариант</li>
+        </ul>
+      </div>
+      <div id="event-custom-wrap" hidden>
+        <input id="event-custom" type="text" class="input" placeholder="Например: годовщина знакомства">
+      </div>
+    </div>
+
+    <!-- 3. Особенности дня -->
+    <div class="box">
+      <h3>3. Особенность дня (опционально)</h3>
+      <div class="checkgrid">
+        <label class="toggle"><input type="checkbox" class="feature" value="Новая страница вашей жизни"><span class="checkmark"></span>Он новая страница вашей жизни</label>
+        <label class="toggle"><input type="checkbox" class="feature" value="Сегодня празднуем"><span class="checkmark"></span>Сегодня празднуем …</label>
+        <label class="toggle"><input type="checkbox" class="feature" value="Сегодня родился/родилась ты"><span class="checkmark"></span>Родился/родилась ты</label>
+        <label class="toggle"><input type="checkbox" class="feature" value="Он возвращает в детство"><span class="checkmark"></span>Он возвращает в детство</label>
+        <label class="toggle"><input type="checkbox" class="feature" value="Дарит возможность сделать что-то необыкновенное"><span class="checkmark"></span>Дарит возможность сделать что-то необыкновенное</label>
+        <label class="toggle"><input type="checkbox" class="feature" value="Символизирует новый этап в твоей жизни"><span class="checkmark"></span>Символизирует новый этап в твоей жизни</label>
+        <label class="toggle"><input type="checkbox" class="feature" value="Мы можем выразить тебе нашу благодарность и признательность"><span class="checkmark"></span>Мы можем выразить тебе нашу благодарность и признательность</label>
+      </div>
+      <div>
+        <input id="feature-custom" type="text" class="input" placeholder="Свой вариант, если нужно">
+      </div>
+    </div>
+
+    <!-- 4. Благодарности -->
+    <div class="box">
+      <h3>4. Благодарность (опционально)</h3>
+      <div class="checkgrid">
+        <label class="toggle"><input type="checkbox" class="thanks" value="За твою поддержку и доброту"><span class="checkmark"></span>За твою поддержку и доброту</label>
+        <label class="toggle"><input type="checkbox" class="thanks" value="За профессионализм и ответственность"><span class="checkmark"></span>За профессионализм и ответственность</label>
+        <label class="toggle"><input type="checkbox" class="thanks" value="За то, что ты есть в моей жизни"><span class="checkmark"></span>За то, что ты есть в моей жизни</label>
+        <label class="toggle"><input type="checkbox" class="thanks" value="За время, проведённое вместе"><span class="checkmark"></span>За время, проведённое вместе</label>
+        <label class="toggle"><input type="checkbox" class="thanks" value="За искренность и честность"><span class="checkmark"></span>За искренность и честность</label>
+        <label class="toggle"><input type="checkbox" class="thanks" value="За душевную красоту и тепло"><span class="checkmark"></span>За душевную красоту и тепло</label>
+        <label class="toggle"><input type="checkbox" class="thanks" value="За крепкое плечо, которое всегда рядом"><span class="checkmark"></span>За крепкое плечо, которое всегда рядом</label>
+      </div>
+      <input id="thanks-custom" type="text" class="input" placeholder="Свой вариант, если нужно">
+    </div>
+
+    <!-- 5. Пожелания -->
+    <div class="box">
+      <h3>5. Пожелания</h3>
+      <div class="checkgrid">
+        <label class="toggle"><input type="checkbox" class="wish" value="Здоровья (крепкого, богатырского, несокрушимого)"><span class="checkmark"></span>Здоровья</label>
+        <label class="toggle"><input type="checkbox" class="wish" value="Счастья (лучистого, безграничного, каждый день)"><span class="checkmark"></span>Счастья</label>
+        <label class="toggle"><input type="checkbox" class="wish" value="Удачи (во всех начинаниях)"><span class="checkmark"></span>Удачи</label>
+        <label class="toggle"><input type="checkbox" class="wish" value="Любви (и взаимной, и теплой семейной)"><span class="checkmark"></span>Любви</label>
+        <label class="toggle"><input type="checkbox" class="wish" value="Финансового благополучия и процветания"><span class="checkmark"></span>Финансового благополучия</label>
+        <label class="toggle"><input type="checkbox" class="wish" value="Ярких впечатлений"><span class="checkmark"></span>Ярких впечатлений</label>
+        <label class="toggle"><input type="checkbox" class="wish" value="Новых открытий"><span class="checkmark"></span>Новых открытий</label>
+        <label class="toggle"><input type="checkbox" class="wish" value="Верных друзей и понимания в семье"><span class="checkmark"></span>Верных друзей</label>
+        <label class="toggle"><input type="checkbox" class="wish" value="Внутренней гармонии и уверенности в себе"><span class="checkmark"></span>Внутренней гармонии</label>
+        <label class="toggle"><input type="checkbox" class="wish" value="Мирного неба"><span class="checkmark"></span>Мирного неба</label>
+        <label class="toggle"><input type="checkbox" class="wish" value="Хороших воспоминаний, весёлых моментов"><span class="checkmark"></span>Хороших воспоминаний</label>
+        <label class="toggle"><input type="checkbox" class="wish" value="Приятных сюрпризов"><span class="checkmark"></span>Приятных сюрпризов</label>
+        <label class="toggle"><input type="checkbox" class="wish" value="Неиссякаемой энергии"><span class="checkmark"></span>Неиссякаемой энергии</label>
+        <label class="toggle"><input type="checkbox" class="wish" value="Благополучия на долгие годы"><span class="checkmark"></span>Благополучия на долгие годы</label>
+      </div>
+      <textarea id="wish-custom" class="input" placeholder="Например: Пускай у тебя... (можно несколько строк)"></textarea>
+    </div>
+
+    <!-- 6. Заключение -->
+    <div class="box">
+      <h3>6. Заключительная фраза и подпись</h3>
+      <div class="dropdown" id="ending-select" data-custom="ending-custom-wrap">
+        <div class="dropdown-btn">Заключение</div>
+        <ul class="dropdown-content">
+          <li value="С праздником!">С праздником!</li>
+          <li value="С праздничным днём!">С праздничным днём!</li>
+          <li value="С торжеством!">С торжеством!</li>
+          <li value="С юбилеем!">С юбилеем!</li>
+          <li value="custom">Свой вариант</li>
+        </ul>
+      </div>
+      <div id="ending-custom-wrap" hidden>
+        <input id="ending-custom" type="text" class="input" placeholder="Своя заключительная фраза" />
+      </div>
+
+      <div class="dropdown" id="sign-select" data-custom="sign-custom-wrap">
+        <div class="dropdown-btn">Подпись</div>
+        <ul class="dropdown-content">
+          <li value="Искренне твой…">Искренне твой…</li>
+          <li value="Искренне твоя…">Искренне твоя…</li>
+          <li value="С наилучшими пожеланиями…">С наилучшими пожеланиями…</li>
+          <li value="custom">Свой вариант</li>
+        </ul>
+      </div>
+      <div id="sign-custom-wrap" hidden>
+        <input id="sign-custom" type="text" class="input" placeholder="Свой текст подписи (и имя)" />
+      </div>
+
+      <input id="sender-name" type="text" class="input" placeholder="Ваше имя" />
+    </div>
+
+    <!-- Итог -->
+    <div class="box box-right">
+      <h3>Итоговое поздравление</h3>
+      <div class="checkgrid">
+        <label class="toggle"><input type="checkbox" id="hideOptional"><span class="checkmark"></span>Скрыть необязательные блоки</label>
+      </div>
+      <textarea id="final-text" class="input glass-textarea" rows="12" readonly></textarea>
+      <button class="glass-btn" id="copyBtn">Скопировать</button>
+    </div>
+  </div>
+  </div>
+  <script src="js/preloader.js" defer></script>
+</body>
+</html>
